@@ -45,17 +45,40 @@ void cutAndAddFront(struct Node *&head,int n)
 	if(head == NULL)
 	{
 		cout<<endl<<"Empty Linked List";
+		return;
 	}
 	if(head->next == NULL)
 	{
 		cout<<endl<<"Only one Node in Linked List";
+		return;
 	}
 	
 	struct Node *temp = head;
+	struct Node *nth = NULL;
+	
+	while(n!=0)
+	{
+		if(temp->next == NULL)
+		{
+			cout<<endl<<"N is out of range"<<endl;
+			return;
+		}
+		if((n-1) == 0)
+		{
+			nth = temp->next;
+			temp->next = NULL;
+		}
+		temp = temp->next;
+		n--;
+	}
+	
+	temp = nth;
 	while(temp->next != NULL)
 	{
-		
+		temp = temp->next;
 	}
+	temp->next = head;
+	head = nth;
 }
 
 int main()
@@ -69,7 +92,9 @@ int main()
 	addLinkedListFront(head,20);
 	addLinkedListFront(head,10);
 	printLL(head);
-	
+	cout<<endl<<"After cut and add front : ";
+	cutAndAddFront(head,7);
+	printLL(head);
 	
 	return 0;
 }
